@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repositories\Email;
 
+use App\Contracts\Email\EmailTemplateRepositoryInterface;
 use App\Models\Email\EmailTemplate;
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Collection;
 
-final class EmailTemplateRepository extends BaseRepository
+final class EmailTemplateRepository extends BaseRepository implements EmailTemplateRepositoryInterface
 {
     public function __construct()
     {
@@ -25,7 +27,7 @@ final class EmailTemplateRepository extends BaseRepository
     /**
      * Get all active templates
      */
-    public function getAllActive()
+    public function getAllActive(): Collection
     {
         return EmailTemplate::active()->orderBy('name')->get();
     }
@@ -43,7 +45,7 @@ final class EmailTemplateRepository extends BaseRepository
     /**
      * Search templates by name or description
      */
-    public function search(string $query)
+    public function search(string $query): Collection
     {
         return EmailTemplate::where(function ($q) use ($query) {
             $q->where('name', 'like', "%{$query}%")

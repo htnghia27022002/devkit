@@ -130,14 +130,17 @@ export default function JsonTools() {
             switch (activeTool) {
                 case 'format':
                     setOutput(JSON.stringify(parsed, null, indentSize));
+                    setParsedJson(parsed);
                     break;
 
                 case 'minify':
                     setOutput(JSON.stringify(parsed));
+                    setParsedJson(parsed);
                     break;
 
                 case 'validate':
                     setIsValid(true);
+                    setParsedJson(parsed);
                     break;
 
                 case 'decode':
@@ -288,7 +291,7 @@ export default function JsonTools() {
                         <div className="flex flex-col gap-3">
                             <div className="flex items-center justify-between">
                                 <span className="text-sm font-medium">
-                                    {activeTool === 'decode' ? 'Tree View' : 'Output'}
+                                    {activeTool === 'decode' ? 'Tree View' : activeTool === 'validate' ? 'Validation' : 'Output'}
                                 </span>
 
                                 {hasOutput && activeTool !== 'validate' && (
@@ -335,10 +338,10 @@ export default function JsonTools() {
                                 </Alert>
                             )}
 
-                            {/* Tree view for decode */}
-                            {activeTool === 'decode' && parsedJson !== null ? (
+                            {/* JSON view / raw output */}
+                            {parsedJson !== null && activeTool !== 'encode' ? (
                                 <div className="min-h-72 overflow-auto rounded-md border border-border bg-muted/50 p-3">
-                                    {typeof parsedJson === 'object' ? (
+                                    {typeof parsedJson === 'object' && parsedJson !== null ? (
                                         <JsonView data={parsedJson as object} style={jsonStyles} />
                                     ) : (
                                         <pre className="font-mono text-sm text-foreground">
@@ -346,14 +349,14 @@ export default function JsonTools() {
                                         </pre>
                                     )}
                                 </div>
+                            ) : output ? (
+                                <pre className="min-h-72 overflow-auto rounded-md border border-border bg-muted/50 p-3 font-mono text-sm leading-relaxed text-foreground whitespace-pre-wrap break-all">
+                                    {output}
+                                </pre>
                             ) : (
-                                <Textarea
-                                    placeholder="Result will appear here…"
-                                    value={output}
-                                    readOnly
-                                    className="min-h-72 bg-muted font-mono text-sm"
-                                    spellCheck={false}
-                                />
+                                <div className="min-h-72 flex items-center justify-center rounded-md border border-border bg-muted/50">
+                                    <p className="text-sm text-muted-foreground">Result will appear here…</p>
+                                </div>
                             )}
                         </div>
                     </div>

@@ -27,7 +27,7 @@ final class EmailTemplateController extends Controller
         $templates = $this->repository->getAll();
 
         return Inertia::render('Email/Templates/Index', [
-            'templates' => EmailTemplateResource::collection($templates),
+            'templates' => EmailTemplateResource::collection($templates)->resolve(),
         ]);
     }
 

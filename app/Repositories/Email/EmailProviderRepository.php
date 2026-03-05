@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Repositories\Email;
 
+use App\Contracts\Email\EmailProviderRepositoryInterface;
 use App\Models\Email\EmailProvider;
 use App\Repositories\BaseRepository;
 use Illuminate\Support\Collection;
 
-final class EmailProviderRepository extends BaseRepository
+final class EmailProviderRepository extends BaseRepository implements EmailProviderRepositoryInterface
 {
     public function __construct()
     {

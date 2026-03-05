@@ -29,7 +29,7 @@ final class EmailProviderController extends Controller
         $providers = $this->repository->getAll();
 
         return Inertia::render('Email/Providers/Index', [
-            'providers' => EmailProviderResource::collection($providers),
+            'providers' => EmailProviderResource::collection($providers)->resolve(),
         ]);
     }
 

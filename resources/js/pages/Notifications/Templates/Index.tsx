@@ -74,7 +74,7 @@ export default function Index({ templates, availableTypes }: Props) {
           <CardHeader>
             <CardTitle>All Templates</CardTitle>
             <CardDescription>
-              {templates.total} template{templates.total !== 1 ? 's' : ''} available
+              {templates.meta.total} template{templates.meta.total !== 1 ? 's' : ''} available
             </CardDescription>
           </CardHeader>
           <CardContent>

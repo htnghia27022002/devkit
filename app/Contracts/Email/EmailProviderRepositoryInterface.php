@@ -33,19 +33,4 @@ interface EmailProviderRepositoryInterface
      * Get providers that haven't been used recently
      */
     public function getUnused(int $days = 30): Collection;
-
-    /**
-     * Find by ID
-     */
-    public function findById(int $id): ?EmailProvider;
-
-    /**
-     * Get all providers
-     */
-    public function getAll(): Collection;
-
-    /**
-     * Check if provider exists
-     */
-    public function exists(int $id): bool;
 }

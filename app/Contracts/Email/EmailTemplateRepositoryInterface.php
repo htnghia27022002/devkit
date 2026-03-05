@@ -28,14 +28,4 @@ interface EmailTemplateRepositoryInterface
      * Search templates
      */
     public function search(string $query): Collection;
-
-    /**
-     * Find by ID
-     */
-    public function findById(int $id): ?EmailTemplate;
-
-    /**
-     * Get all templates
-     */
-    public function getAll(): Collection;
 }

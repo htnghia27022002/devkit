@@ -40,16 +40,6 @@ const TOOLS = [
         requiresAuth: false,
     },
     {
-        icon: CodeIcon,
-        name: 'Encoder / Decoder',
-        description: 'Encode or decode Base64, URL, HTML entities, JWT, and more. Fast, client-side processing with no data stored.',
-        href: '/tools/encoder-decoder',
-        badge: 'Auth',
-        badgeClass: 'bg-indigo-500/10 text-indigo-400 border-indigo-500/20',
-        available: true,
-        requiresAuth: true,
-    },
-    {
         icon: BracesIcon,
         name: 'JSON Tools',
         description: 'Format, minify, validate and decode JSON. Explore nested structures in an interactive tree view — no account needed.',

@@ -5,6 +5,10 @@ export interface Notification {
   channel: string;
   title: string;
   message: string;
+  status?: string;
+  retry_count?: number;
+  max_retries?: number;
+  last_error?: string;
   data?: Record<string, unknown>;
   action_url?: string;
   read_at?: string;
