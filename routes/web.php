@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Calendar\CalendarController;
+use App\Http\Controllers\Webhook\WebhookCatcherController;
+use App\Http\Controllers\Webhook\WebhookController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -10,6 +12,16 @@ Route::get('/', function () {
         'canRegister' => Features::enabled(Features::registration()),
     ]);
 })->name('home');
+
+// ===== Webhook Testing (Public - No Auth) =====
+Route::get('webhooks', [WebhookController::class, 'index'])->name('webhooks.index');
+Route::post('webhooks/endpoints', [WebhookController::class, 'createOrGet'])->name('webhooks.endpoints.createOrGet');
+Route::get('webhooks/endpoints/{uuid}/requests', [WebhookController::class, 'requests'])->name('webhooks.endpoints.requests');
+Route::delete('webhooks/endpoints/{uuid}/requests', [WebhookController::class, 'clearRequests'])->name('webhooks.endpoints.clearRequests');
+Route::put('webhooks/endpoints/{uuid}/settings', [WebhookController::class, 'updateSettings'])->name('webhooks.endpoints.updateSettings');
+
+// Webhook Catcher - accepts all HTTP methods (CSRF disabled)
+Route::any('webhook/{uuid}', [WebhookCatcherController::class, 'catch'])->name('webhook.catch');
 
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');

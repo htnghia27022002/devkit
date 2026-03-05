@@ -25,6 +25,8 @@ return Application::configure(basePath: dirname(__DIR__))
         // Enable CORS for development
         $middleware->validateCsrfTokens(except: [
             'api/*',
+            'webhook/*',
+            'webhooks/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
