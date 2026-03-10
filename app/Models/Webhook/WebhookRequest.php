@@ -26,6 +26,7 @@ final class WebhookRequest extends Model
         'ip_address',
         'user_agent',
         'size',
+        'seen_at',
     ];
 
     protected $casts = [
@@ -35,6 +36,7 @@ final class WebhookRequest extends Model
         'parsed_body' => 'array',
         'size' => 'integer',
         'created_at' => 'datetime',
+        'seen_at' => 'datetime',
     ];
 
     public function endpoint(): BelongsTo

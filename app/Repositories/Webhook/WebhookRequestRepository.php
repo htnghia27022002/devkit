@@ -46,4 +46,17 @@ final class WebhookRequestRepository extends BaseRepository implements WebhookRe
     {
         return $this->model::where('webhook_endpoint_id', $endpointId)->delete();
     }
+
+    public function findByUuid(string $uuid): ?WebhookRequest
+    {
+        /** @var WebhookRequest|null */
+        return $this->model::where('uuid', $uuid)->first();
+    }
+
+    public function markAsSeen(int $id): bool
+    {
+        return (bool) $this->model::where('id', $id)
+            ->whereNull('seen_at')
+            ->update(['seen_at' => now()]);
+    }
 }

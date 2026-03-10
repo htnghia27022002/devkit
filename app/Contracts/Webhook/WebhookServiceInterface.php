@@ -19,4 +19,6 @@ interface WebhookServiceInterface
     public function clearRequests(WebhookEndpoint $endpoint): int;
 
     public function cleanExpiredEndpoints(): int;
+
+    public function markRequestAsSeen(WebhookRequest $request): WebhookRequest;
 }

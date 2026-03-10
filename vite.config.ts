@@ -28,13 +28,13 @@ export default defineConfig({
         port: 5175,
         host: '0.0.0.0',
         strictPort: true,
-        origin: 'https://spend-wise.local:5175',
+        origin: 'https://devkit.local:5175',
         hmr: {
-            host: 'spend-wise.local',
+            host: 'devkit.local',
             port: 5175,
             protocol: 'wss',
         },
-        allowedHosts: ['spend-wise.local', 'localhost'],
+        allowedHosts: ['devkit.local', 'localhost'],
     },
     esbuild: {
         jsx: 'automatic',

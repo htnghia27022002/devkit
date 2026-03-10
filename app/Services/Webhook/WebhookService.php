@@ -96,6 +96,15 @@ final class WebhookService implements WebhookServiceInterface
         return $this->requestRepository->deleteByEndpoint($endpoint->id);
     }
 
+    public function markRequestAsSeen(WebhookRequest $request): WebhookRequest
+    {
+        if ($request->seen_at === null) {
+            $this->requestRepository->markAsSeen($request->id);
+        }
+
+        return $request->fresh();
+    }
+
     public function cleanExpiredEndpoints(): int
     {
         $expired = WebhookEndpoint::where('status', EndpointStatus::ACTIVE)

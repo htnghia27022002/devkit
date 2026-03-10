@@ -22,6 +22,7 @@ Route::get('webhooks', [WebhookController::class, 'index'])->name('webhooks.inde
 Route::post('webhooks/endpoints', [WebhookController::class, 'createOrGet'])->name('webhooks.endpoints.createOrGet');
 Route::get('webhooks/endpoints/{uuid}/requests', [WebhookController::class, 'requests'])->name('webhooks.endpoints.requests');
 Route::delete('webhooks/endpoints/{uuid}/requests', [WebhookController::class, 'clearRequests'])->name('webhooks.endpoints.clearRequests');
+Route::patch('webhooks/endpoints/{uuid}/requests/{requestUuid}/seen', [WebhookController::class, 'markSeen'])->name('webhooks.endpoints.requests.seen');
 Route::put('webhooks/endpoints/{uuid}/settings', [WebhookController::class, 'updateSettings'])->name('webhooks.endpoints.updateSettings');
 
 // Webhook Catcher - accepts all HTTP methods (CSRF disabled)

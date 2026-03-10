@@ -873,29 +873,29 @@ Register shared utilities and hooks in service providers or initialization:
 
 ### Docker Container Setup
 
-This project runs inside a Docker container (FrankenPHP) at `/app/spend-wise`. Always execute commands within the container:
+This project runs inside a Docker container (FrankenPHP) at `/app/devkit`. Always execute commands within the container:
 
 **Container Details:**
 - **Container Name**: `frankenphp`
-- **Working Directory**: `/app/spend-wise`
-- **Source Host Path**: `/home/htnghia/Sources/spend-wise`
+- **Working Directory**: `/app/devkit`
+- **Source Host Path**: `/home/htnghia/Sources/devkit`
 
 **Running Commands:**
 ```bash
 # PHP/Laravel commands
-docker exec -it frankenphp bash -c "cd /app/spend-wise && php artisan [command]"
-docker exec -it frankenphp bash -c "cd /app/spend-wise && composer [command]"
+docker exec -it frankenphp bash -c "cd /app/devkit && php artisan [command]"
+docker exec -it frankenphp bash -c "cd /app/devkit && composer [command]"
 
 # NPM/Node commands
-docker exec -it frankenphp bash -c "cd /app/spend-wise && npm [command]"
-docker exec -it frankenphp bash -c "cd /app/spend-wise && npm run dev"
-docker exec -it frankenphp bash -c "cd /app/spend-wise && npm run build"
+docker exec -it frankenphp bash -c "cd /app/devkit && npm [command]"
+docker exec -it frankenphp bash -c "cd /app/devkit && npm run dev"
+docker exec -it frankenphp bash -c "cd /app/devkit && npm run build"
 
 # Database migrations
-docker exec -it frankenphp bash -c "cd /app/spend-wise && php artisan migrate"
+docker exec -it frankenphp bash -c "cd /app/devkit && php artisan migrate"
 
 # Cache clearing
-docker exec -it frankenphp bash -c "cd /app/spend-wise && php artisan optimize:clear"
+docker exec -it frankenphp bash -c "cd /app/devkit && php artisan optimize:clear"
 ```
 
 **DO NOT run commands directly on host machine** - always use `docker exec -it frankenphp` prefix.

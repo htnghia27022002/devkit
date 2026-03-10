@@ -28,6 +28,7 @@ class WebhookRequestResource extends JsonResource
             'ip_address' => $this->ip_address,
             'user_agent' => $this->user_agent,
             'size' => $this->size,
+            'seen_at' => $this->seen_at?->toISOString(),
             'created_at' => $this->created_at?->toISOString(),
         ];
     }

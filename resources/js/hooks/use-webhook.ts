@@ -156,6 +156,35 @@ export function useWebhook() {
         [],
     );
 
+    const markRequestSeen = useCallback(
+        async (endpointUuid: string, requestUuid: string) => {
+            try {
+                const response = await fetch(
+                    `${API_BASE}/endpoints/${endpointUuid}/requests/${requestUuid}/seen`,
+                    {
+                        method: 'PATCH',
+                        headers: {
+                            Accept: 'application/json',
+                            'X-CSRF-TOKEN': getCsrfToken(),
+                        },
+                    },
+                );
+
+                if (!response.ok) return;
+
+                const json = await response.json();
+                const updated: WebhookRequest = json.data;
+
+                setRequests((prev) =>
+                    prev.map((r) => (r.uuid === requestUuid ? { ...r, seen_at: updated.seen_at } : r)),
+                );
+            } catch {
+                // ignore
+            }
+        },
+        [],
+    );
+
     useEffect(() => {
         return () => stopPolling();
     }, [stopPolling]);
@@ -172,5 +201,6 @@ export function useWebhook() {
         stopPolling,
         clearRequests,
         updateSettings,
+        markRequestSeen,
     };
 }

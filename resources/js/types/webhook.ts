@@ -24,5 +24,6 @@ export interface WebhookRequest {
     ip_address: string;
     user_agent: string | null;
     size: number;
+    seen_at: string | null;
     created_at: string;
 }

@@ -106,12 +106,10 @@ function TruncatedValue({ value }: { value: string }) {
 function RequestItem({
     request,
     isSelected,
-    isNew,
     onClick,
 }: {
     request: WebhookRequest;
     isSelected: boolean;
-    isNew: boolean;
     onClick: () => void;
 }) {
     const [ago, setAgo] = useState(() => timeAgo(request.created_at));
@@ -122,6 +120,7 @@ function RequestItem({
     }, [request.created_at]);
 
     const shortId = request.uuid.substring(0, 8);
+    const isNew = request.seen_at === null;
 
     return (
         <button
@@ -372,12 +371,10 @@ function RequestBody({ body, parsed }: { body: string; parsed: Record<string, un
 export default function RequestInspector({
     requests,
     selectedId,
-    readIds,
     onSelect,
 }: {
     requests: WebhookRequest[];
     selectedId: number | null;
-    readIds: Set<number>;
     onSelect: (id: number) => void;
 }) {
     const selectedRequest = requests.find((r) => r.id === selectedId);
@@ -405,7 +402,6 @@ export default function RequestInspector({
                                 key={req.id}
                                 request={req}
                                 isSelected={selectedId === req.id}
-                                isNew={!readIds.has(req.id)}
                                 onClick={() => onSelect(req.id)}
                             />
                         ))

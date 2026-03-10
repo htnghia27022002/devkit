@@ -23,10 +23,10 @@ export default function WebhookIndex() {
         fetchRequests,
         startPolling,
         clearRequests,
+        markRequestSeen,
     } = useWebhook();
 
     const [selectedRequestId, setSelectedRequestId] = useState<number | null>(null);
-    const [readIds, setReadIds] = useState<Set<number>>(new Set());
     const [initializing, setInitializing] = useState(true);
     const initRef = useRef(false);
 
@@ -66,18 +66,16 @@ export default function WebhookIndex() {
 
     const handleSelect = useCallback((id: number) => {
         setSelectedRequestId(id);
-        setReadIds((prev) => {
-            const next = new Set(prev);
-            next.add(id);
-            return next;
-        });
-    }, []);
+        const req = requests.find((r) => r.id === id);
+        if (req && req.seen_at === null && endpoint) {
+            markRequestSeen(endpoint.uuid, req.uuid);
+        }
+    }, [requests, endpoint, markRequestSeen]);
 
     const handleClear = useCallback(async () => {
         if (!endpoint) return;
         await clearRequests(endpoint.uuid);
         setSelectedRequestId(null);
-        setReadIds(new Set());
     }, [endpoint, clearRequests]);
 
     return (
@@ -145,7 +143,6 @@ export default function WebhookIndex() {
                             <RequestInspector
                                 requests={requests}
                                 selectedId={selectedRequestId}
-                                readIds={readIds}
                                 onSelect={handleSelect}
                             />
                         </>

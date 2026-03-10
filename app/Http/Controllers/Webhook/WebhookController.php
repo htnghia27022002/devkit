@@ -92,6 +92,28 @@ final class WebhookController extends Controller
     }
 
     /**
+     * Mark a webhook request as seen
+     */
+    public function markSeen(string $uuid, string $requestUuid): JsonResponse
+    {
+        $endpoint = $this->endpointRepository->findByUuid($uuid);
+
+        if (! $endpoint) {
+            return response()->json(['message' => 'Endpoint not found'], 404);
+        }
+
+        $webhookRequest = $this->requestRepository->findByUuid($requestUuid);
+
+        if (! $webhookRequest || $webhookRequest->webhook_endpoint_id !== $endpoint->id) {
+            return response()->json(['message' => 'Request not found'], 404);
+        }
+
+        $updated = $this->service->markRequestAsSeen($webhookRequest);
+
+        return WebhookRequestResource::make($updated)->response();
+    }
+
+    /**
      * Update endpoint response settings
      */
     public function updateSettings(Request $request, string $uuid): JsonResponse

@@ -175,13 +175,13 @@ notification_templates
 ### Step 1: Install Dependencies
 ```bash
 # For SMS
-docker exec -it frankenphp bash -c "cd /app/spend-wise && composer require laravel-notification-channels/twilio"
+docker exec -it frankenphp bash -c "cd /app/devkit && composer require laravel-notification-channels/twilio"
 
 # For Push Notification
-docker exec -it frankenphp bash -c "cd /app/spend-wise && composer require laravel-notification-channels/fcm"
+docker exec -it frankenphp bash -c "cd /app/devkit && composer require laravel-notification-channels/fcm"
 
 # Optional: Email preview
-docker exec -it frankenphp bash -c "cd /app/spend-wise && composer require spatie/laravel-mail-preview --dev"
+docker exec -it frankenphp bash -c "cd /app/devkit && composer require spatie/laravel-mail-preview --dev"
 ```
 
 ### Step 2: Create Provider Infrastructure
