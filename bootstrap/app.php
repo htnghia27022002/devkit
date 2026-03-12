@@ -27,6 +27,8 @@ return Application::configure(basePath: dirname(__DIR__))
             'api/*',
             'webhook/*',
             'webhooks/*',
+            'fake-api/*',
+            'fake-api-tool/*',
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

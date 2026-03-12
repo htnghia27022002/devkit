@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Calendar\CalendarController;
+use App\Http\Controllers\FakeApi\FakeApiController;
+use App\Http\Controllers\FakeApi\FakeApiResponderController;
 use App\Http\Controllers\Webhook\WebhookCatcherController;
 use App\Http\Controllers\Webhook\WebhookController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +29,19 @@ Route::put('webhooks/endpoints/{uuid}/settings', [WebhookController::class, 'upd
 
 // Webhook Catcher - accepts all HTTP methods (CSRF disabled)
 Route::any('webhook/{uuid}', [WebhookCatcherController::class, 'catch'])->name('webhook.catch');
+
+// ===== Fake API Tool (Public - No Auth) =====
+Route::get('fake-api-tool', [FakeApiController::class, 'index'])->name('fake-api.index');
+Route::post('fake-api-tool/endpoints', [FakeApiController::class, 'createOrGet'])->name('fake-api.endpoints.createOrGet');
+Route::put('fake-api-tool/endpoints/{uuid}', [FakeApiController::class, 'update'])->name('fake-api.endpoints.update');
+Route::get('fake-api-tool/endpoints/{uuid}/logs', [FakeApiController::class, 'logs'])->name('fake-api.endpoints.logs');
+Route::delete('fake-api-tool/endpoints/{uuid}/logs', [FakeApiController::class, 'clearLogs'])->name('fake-api.endpoints.clearLogs');
+
+// Fake API Responder - accepts all HTTP methods, supports optional sub-path (CSRF disabled)
+Route::any('fake-api/{uuid}', [FakeApiResponderController::class, 'respond'])->name('fake-api.respond');
+Route::any('fake-api/{uuid}/{path}', [FakeApiResponderController::class, 'respond'])
+    ->where('path', '.*')
+    ->name('fake-api.respond.path');
 
 Route::get('dashboard', function () {
     return Inertia::render('dashboard');

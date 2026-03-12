@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import AppearanceToggleButton from '@/components/appearance-toggle-button';
 import {
     ArrowRightIcon,
     BracesIcon,
@@ -34,6 +35,16 @@ const TOOLS = [
         name: 'Webhook Tester',
         description: 'Inspect incoming HTTP requests in real time. No account needed — grab your unique URL and start receiving webhooks instantly.',
         href: '/webhooks',
+        badge: 'Free',
+        badgeClass: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
+        available: true,
+        requiresAuth: false,
+    },
+    {
+        icon: ServerIcon,
+        name: 'Fake API',
+        description: 'Define a JSON response template and get an instant mock endpoint URL. Perfect for frontend development without a real backend.',
+        href: '/fake-api-tool',
         badge: 'Free',
         badgeClass: 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20',
         available: true,
@@ -169,6 +180,7 @@ export default function Welcome({ canRegister = true }: { canRegister?: boolean 
 
                         {/* Auth */}
                         <div className="flex items-center gap-2">
+                            <AppearanceToggleButton className="text-muted-foreground hover:text-foreground" />
                             {auth.user ? (
                                 <Button size="sm" asChild>
                                     <Link href={dashboard()}>

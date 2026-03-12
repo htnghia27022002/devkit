@@ -8,16 +8,22 @@ use App\Contracts\Email\EmailProviderRepositoryInterface;
 use App\Contracts\Email\EmailServiceInterface;
 use App\Contracts\Email\EmailTemplateRepositoryInterface;
 use App\Contracts\Notification\NotificationServiceInterface;
+use App\Contracts\FakeApi\FakeApiEndpointRepositoryInterface;
+use App\Contracts\FakeApi\FakeApiLogRepositoryInterface;
+use App\Contracts\FakeApi\FakeApiServiceInterface;
 use App\Contracts\Webhook\WebhookEndpointRepositoryInterface;
 use App\Contracts\Webhook\WebhookRequestRepositoryInterface;
 use App\Contracts\Webhook\WebhookServiceInterface;
 use App\Repositories\Calendar\CalendarRepository;
 use App\Repositories\Email\EmailProviderRepository;
 use App\Repositories\Email\EmailTemplateRepository;
+use App\Repositories\FakeApi\FakeApiEndpointRepository;
+use App\Repositories\FakeApi\FakeApiLogRepository;
 use App\Repositories\Webhook\WebhookEndpointRepository;
 use App\Repositories\Webhook\WebhookRequestRepository;
 use App\Services\Calendar\CalendarService;
 use App\Services\Email\EmailService;
+use App\Services\FakeApi\FakeApiService;
 use App\Services\Notification\NotificationService;
 use App\Services\Webhook\WebhookService;
 use Carbon\CarbonImmutable;
@@ -49,6 +55,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WebhookEndpointRepositoryInterface::class, WebhookEndpointRepository::class);
         $this->app->bind(WebhookRequestRepositoryInterface::class, WebhookRequestRepository::class);
         $this->app->bind(WebhookServiceInterface::class, WebhookService::class);
+
+        // FakeApi bindings
+        $this->app->bind(FakeApiEndpointRepositoryInterface::class, FakeApiEndpointRepository::class);
+        $this->app->bind(FakeApiLogRepositoryInterface::class, FakeApiLogRepository::class);
+        $this->app->bind(FakeApiServiceInterface::class, FakeApiService::class);
     }
 
     /**
